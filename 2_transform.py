@@ -1,10 +1,6 @@
 import json
 from datetime import datetime, timedelta
-
-output = {}
-
-with open('output.json', 'r', encoding='utf-8') as f:
-    data = json.load(f)
+import os
 
 
 def convert_date_to_iso(date_str):
@@ -167,33 +163,59 @@ def get_sources(section):
     return sources
 
 
-main_images = get_images(data["sections"][0])
-main_images_object = transform_entries(main_images)
+def process_json(data):
+    output = {}
 
-for section in data["sections"]:
-    date = convert_date_to_iso(section["title"])
-    if date:
-        if "lists" in section:
-            for list in section["lists"]:
-                obj = {}
-                events, births, deaths = split_list_into_categories(list)
-                images = get_images(section)
-                sources = get_sources(section)
+    main_images = get_images(data["sections"][0])
+    main_images_object = transform_entries(main_images)
 
-                obj["events"] = [
-                    {"text": object_to_markdown(event)} for event in events]
-                obj["births"] = [
-                    {"text": object_to_markdown(birth)} for birth in births]
-                obj["deaths"] = [
-                    {"text": object_to_markdown(death)} for death in deaths]
-                obj["images"] = images
-                obj["sources"] = sources
+    for section in data["sections"]:
+        date = convert_date_to_iso(section["title"])
+        if date:
+            if "lists" in section:
+                for list in section["lists"]:
+                    obj = {}
+                    events, births, deaths = split_list_into_categories(list)
+                    images = get_images(section)
+                    sources = get_sources(section)
 
-                if date in main_images_object:
-                    obj["images"] += main_images_object[date]
+                    obj["events"] = [
+                        {"text": object_to_markdown(event)} for event in events]
+                    obj["births"] = [
+                        {"text": object_to_markdown(birth)} for birth in births]
+                    obj["deaths"] = [
+                        {"text": object_to_markdown(death)} for death in deaths]
+                    obj["images"] = images
+                    obj["sources"] = sources
 
-                obj["date"] = date
-                output[date] = obj
+                    if date in main_images_object:
+                        obj["images"] += main_images_object[date]
 
-with open('output_transformed.json', 'w', encoding='utf-8') as f:
-    json.dump(output, f, ensure_ascii=False, indent=4)
+                    obj["date"] = date
+                    output[date] = obj
+    return output
+
+
+def process_json_files(folder_path):
+    results = {}  # Liste, um die Ergebnisse der angewandten Funktion zu speichern
+
+    # Durchlaufe alle Dateien im angegebenen Ordner
+    for filename in os.listdir(folder_path):
+        if filename.endswith(".json"):  # Überprüfe, ob die Datei eine JSON-Datei ist
+            file_path = os.path.join(folder_path, filename)
+            with open(file_path, 'r', encoding='utf-8') as file:
+                data = json.load(file)
+                # Wende die benutzerdefinierte Funktion auf die Daten an
+                result = process_json(data)
+                # Füge das Ergebnis zur results hinzu
+                results.update(result)
+
+    return results
+
+
+if __name__ == "__main__":
+    folder_path = "raw"
+    output = process_json_files(folder_path)
+
+    with open('output.json', 'w', encoding='utf-8') as f:
+        json.dump(output, f, ensure_ascii=False, indent=2)
