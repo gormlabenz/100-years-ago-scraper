@@ -214,7 +214,7 @@ def process_json_files(folder_path):
 
 
 if __name__ == "__main__":
-    folder_path = "raw"
+    folder_path = "scraped"
     output = process_json_files(folder_path)
 
     with open('output.json', 'w', encoding='utf-8') as f:

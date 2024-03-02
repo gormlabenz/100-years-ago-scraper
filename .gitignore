@@ -290,6 +290,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-raw
-output
+
 output.json
+scraped

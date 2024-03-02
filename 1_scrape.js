@@ -52,4 +52,4 @@ async function fetchAndSave(
   }
 }
 
-fetchAndSave(1924, 2, 1928, 2, 'raw')
+fetchAndSave(1924, 2, 1928, 2, 'scraped')
