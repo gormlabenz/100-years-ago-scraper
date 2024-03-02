@@ -1,0 +1,15 @@
+{
+  "name": "100-years-ago-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "wtf_wikipedia": "^10.3.0"
+  }
+}

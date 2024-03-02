@@ -1,0 +1,54 @@
+{
+  "1924-02-08": {
+    "notification": {
+      "title": "The news on Feb 8, 1924",
+      "body": "The content of the news"
+    },
+    "images": [
+      {
+        "url": "http://example.com/image1.jpg",
+        "caption": "The caption of the image"
+      },
+      {
+        "url": "http://example.com/image2.jpg",
+        "caption": "The caption of the image"
+      }
+    ],
+    "events": [
+      {
+        "content": "The [Nakhchivan Autonomous Soviet Socialist Republic](/wiki/Nakhchivan_Autonomous_Soviet_Socialist_Republic \"Nakhchivan Autonomous Soviet Socialist Republic\") was created by the Soviet Union within the Azerbaijan Soviet Socialist Republic. On January 20, 1990, it would become the first part of the Soviet Union to secede.",
+        "sources": []
+      },
+      {
+        "content": "U.S. President [Calvin Coolidge](/wiki/Calvin_Coolidge \"Calvin Coolidge\") signed a resolution ordering the [Doheny](/wiki/Edward_L._Doheny \"Edward L. Doheny\") and [Sinclair](/wiki/Harry_Ford_Sinclair \"Harry Ford Sinclair\") petroleum leases to be nullified due to the [Teapot Dome scandal](/wiki/Teapot_Dome_scandal \"Teapot Dome scandal\").",
+        "sources": [
+          "Henning, Arthur Sears (February 9, 1924). \"Coolidge Signs Revocation of Big Oil Leases\". *[Chicago Daily Tribune](/wiki/Chicago_Daily_Tribune \"Chicago Daily Tribune\")*. p. 1."
+        ]
+      },
+      {
+        "content": "**Born:**\n\t* [Ada Sipuel Fisher](/wiki/Ada_Lois_Sipuel_Fisher \"Ada Lois Sipuel Fisher\"), U.S. civil rights figure and lawyer known for her successful 1948 challenge to racial segregation in the case of *[Sipuel v. Board of Regents of the University of Oklahoma](/wiki/Sipuel_v._Board_of_Regents_of_the_University_of_Oklahoma \"Sipuel v. Board of Regents of the University of Oklahoma\")*; in [Chickasha, Oklahoma](/wiki/Chickasha,_Oklahoma \"Chickasha, Oklahoma\") (d. 1995)\n\t* [Lady Wonder](/wiki/Lady_Wonder \"Lady Wonder\"), American horse exhibited for her abilities to perform arithmetic and spelling while being accompanied by her owner and trainer, Claudia E. Fonda (d. 1957)\n\t* [Major General John W. Hepfer](/wiki/John_Hepfer \"John Hepfer\"), U.S. Air Force officer and missile development engineer who oversaw the creation of the [Minuteman](/wiki/LGM-30_Minuteman \"LGM-30 Minuteman\") and [Peacekeeper](/wiki/LGM-118_Peacekeeper \"LGM-118 Peacekeeper\") intercontinental ballistic missiles; in [Waynesboro, Pennsylvania](/wiki/Waynesboro,_Pennsylvania \"Waynesboro, Pennsylvania\") (d. 1997)",
+        "sources": []
+      }
+    ],
+    "births": [
+      {
+        "content": "[Lady Wonder](/wiki/Lady_Wonder \"Lady Wonder\"), American horse exhibited for her abilities to perform arithmetic and spelling while being accompanied by her owner and trainer, Claudia E. Fonda (d. 1957)",
+        "sources": []
+      },
+      {
+        "content": "[Major General John W. Hepfer](/wiki/John_Hepfer \"John Hepfer\"), U.S. Air Force officer and missile development engineer who oversaw the creation of the [Minuteman](/wiki/LGM-30_Minuteman \"LGM-30 Minuteman\") and [Peacekeeper](/wiki/LGM-118_Peacekeeper \"LGM-118 Peacekeeper\") intercontinental ballistic missiles; in [Waynesboro, Pennsylvania](/wiki/Waynesboro,_Pennsylvania \"Waynesboro, Pennsylvania\") (d. 1997)",
+        "sources": []
+      }
+    ],
+    "deaths": [
+      {
+        "content": "[Lady Wonder](/wiki/Lady_Wonder \"Lady Wonder\"), American horse exhibited for her abilities to perform arithmetic and spelling while being accompanied by her owner and trainer, Claudia E. Fonda (d. 1957)",
+        "sources": []
+      },
+      {
+        "content": "[Major General John W. Hepfer](/wiki/John_Hepfer \"John Hepfer\"), U.S. Air Force officer and missile development engineer who oversaw the creation of the [Minuteman](/wiki/LGM-30_Minuteman \"LGM-30 Minuteman\") and [Peacekeeper](/wiki/LGM-118_Peacekeeper \"LGM-118 Peacekeeper\") intercontinental ballistic missiles; in [Waynesboro, Pennsylvania](/wiki/Waynesboro,_Pennsylvania \"Waynesboro, Pennsylvania\") (d. 1997)",
+        "sources": []
+      }
+    ]
+  }
+}
