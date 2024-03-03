@@ -180,7 +180,7 @@ def process_json(data):
                     sources = get_sources(section)
 
                     obj["events"] = [
-                        {"text": object_to_markdown(event)} for event in events]
+                        {"text": object_to_markdown(event), "raw": event} for event in events]
                     obj["births"] = [
                         {"text": object_to_markdown(birth)} for birth in births]
                     obj["deaths"] = [
@@ -217,5 +217,5 @@ if __name__ == "__main__":
     folder_path = "scraped"
     output = process_json_files(folder_path)
 
-    with open('output.json', 'w', encoding='utf-8') as f:
+    with open('transform.json', 'w', encoding='utf-8') as f:
         json.dump(output, f, ensure_ascii=False, indent=2)

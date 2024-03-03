@@ -290,6 +290,14 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+.DS_Store
 
 output.json
+captions.json
+headlines.json
+push_notifications.json
+transform.json
+
 scraped
+images
+images_transformed
