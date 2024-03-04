@@ -50,4 +50,7 @@ done
 # Entferne die Farbverlaufsdatei
 rm gradient.png
 
+# Entferne alle Bilder die keine PNGs sind
+rm *.{jpg,jpeg,gif,bmp,svg,JPG,JPEG,GIF,BMP,SVG}
+
 echo "Transformation completed."
