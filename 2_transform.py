@@ -1,6 +1,7 @@
 import json
 from datetime import datetime, timedelta
 import os
+import re
 
 
 def convert_date_to_iso(date_str):
@@ -63,11 +64,13 @@ def split_list_into_categories(entries):
             events.append(entry)
         elif category == 'births':
             # Entfernt das "Born: " aus dem Eintrag
-            entry['text'] = entry['text'].replace("Born:", "").strip()
+            entry['text'] = entry['text'].replace(
+                "**Born:**", "").replace("Born:", "").strip()
             births.append(entry)
         elif category == 'deaths':
             # Entfernt das "Died: " aus dem Eintrag
-            entry['text'] = entry['text'].replace("Died ", "").strip()
+            entry['text'] = entry['text'].replace(
+                "**Died:**", "").replace("Died:", "").strip()
             deaths.append(entry)
 
     return events, births, deaths
@@ -87,13 +90,14 @@ def to_wikipedia_url(entry):
         page_name = entry["page"].replace(" ", "_")
         return base_url + page_name
     else:
-        return None
+        return entry.get("site", None)
 
 
 def object_to_markdown(obj):
     text = obj["text"]
     formatting = obj.get("formatting", {})
-    links = obj.get("links", [])
+    links = sorted(obj.get("links", []),
+                   key=lambda x: len(x["page"]) if "page" in x else len(x["text"]), reverse=True)
 
     # Ersetze fett und kursiv
     if "bold" in formatting:
@@ -105,11 +109,23 @@ def object_to_markdown(obj):
 
     # Ersetze Links
     for link in links:
+        # Use "page" if "text" is not available
         if link["type"] == "internal":
-            url = to_wikipedia_url(link)
-            # Verwende den Linktext, falls vorhanden, sonst den Seitennamen
             link_text = link.get("text", link["page"])
-            text = text.replace(link_text, f"[{link_text}]({url})")
+            link_url = to_wikipedia_url(link)
+        else:  # Für externe Links
+            link_text = link.get("text", link["site"])
+            link_url = link["site"]
+
+        # Suche nur Text, der noch nicht Teil eines Markdown-Links ist
+        pattern = rf'(?<!\[)\b{re.escape(link_text)}\b(?!]\()'
+
+        # Verwende nur den ersten Treffer, um Mehrfachersetzung zu vermeiden
+        matches = list(re.finditer(pattern, text))
+        if matches:
+            # Ersetze den ersten Treffer durch Markdown-Link
+            start, end = matches[0].span()
+            text = text[:start] + f"[{link_text}]({link_url})" + text[end:]
 
     return text
 
@@ -182,9 +198,9 @@ def process_json(data):
                     obj["events"] = [
                         {"text": object_to_markdown(event), "raw": event} for event in events]
                     obj["births"] = [
-                        {"text": object_to_markdown(birth)} for birth in births]
+                        {"text": object_to_markdown(birth), "raw": birth} for birth in births]
                     obj["deaths"] = [
-                        {"text": object_to_markdown(death)} for death in deaths]
+                        {"text": object_to_markdown(death), "raw": death} for death in deaths]
                     obj["images"] = images
                     obj["sources"] = sources
 
