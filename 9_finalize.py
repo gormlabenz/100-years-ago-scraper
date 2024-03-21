@@ -1,14 +1,13 @@
 import json
-import re
 
 
 def get_basename_from_url(url):
     """
-    Extrahiert den Basenamen aus der URL, ohne den Namen zu verändern.
+    Extracts the base name from the URL without changing the name.
     """
-    # Extrahiert den letzten Teil der URL nach dem letzten '/' als Dateinamen
+    # Extracts the last part of the URL after the last '/' as the file name
     file_name = url.split('/')[-1]
-    # Entfernt die Dateiendung, wenn vorhanden, ohne den Namen zu verändern
+    # Removes the file extension, if present, without changing the name
     base_name = file_name.rsplit('.', 1)[0]
     return base_name
 
@@ -22,6 +21,19 @@ def adjust_image_objects(image_obj):
     return new_image_obj
 
 
+def remove_empty_entries_and_raw(entries):
+    """
+    Entfernt Einträge, deren 'text'-Eigenschaft leer ist und löscht 'raw'-Einträge.
+    """
+    # Entfernen der Einträge, deren 'text'-Eigenschaft leer ist
+    filtered_entries = [entry for entry in entries if entry.get('text')]
+    # Löschen der 'raw'-Einträge aus jedem verbleibenden Eintrag
+    for entry in filtered_entries:
+        if 'raw' in entry:
+            del entry['raw']
+    return filtered_entries
+
+
 def process_json(input_file, output_file):
     with open(input_file, 'r', encoding='utf-8') as file:
         data = json.load(file)
@@ -29,13 +41,18 @@ def process_json(input_file, output_file):
     images_dict = {}
 
     for date, details in data.items():
+        # Bereinigung von leeren Einträgen und Löschen von 'raw' in births, deaths und events
+        for category in ['births', 'deaths', 'events']:
+            if category in details:
+                details[category] = remove_empty_entries_and_raw(
+                    details[category])
+
         if 'images' in details:
             for image in details['images']:
                 if not image['file'].lower().endswith('.svg'):
                     images_dict[get_basename_from_url(
                         image['url'])] = f"../assets/images/{get_basename_from_url(image['url'])}.png"
 
-        # Anpassungen hier...
         image_objects = details.get('images', [])
         image_objects = [
             img for img in image_objects if not img['file'].lower().endswith('.svg')]
